@@ -1,0 +1,68 @@
+{
+    "Ciudad": [
+        {
+            "Barrio": [
+                {
+                    "id": "Barrio A",
+                    "x": 120,
+                    "y": 60,
+                    "tanque": 1,
+                    "monton": 180
+                },
+                {
+                    "id": "Barrio B",
+                    "x": 550,
+                    "y": 250,
+                    "tanque": 0,
+                    "monton": 0
+                },
+                {
+                    "id": "Barrio C",
+                    "x": 230,
+                    "y": 510,
+                    "tanque": 1,
+                    "monton": 270
+                },
+                {
+                    "id": "Barrio D",
+                    "x": 50,
+                    "y": 350,
+                    "tanque": 1,
+                    "monton": 55
+                }
+            ],
+            "Tuberia": [
+                {
+                    "origen": "Barrio A",
+                    "destino": "Barrio B",
+                    "capacidad": 5
+                },
+                {
+                    "origen": "Barrio C",
+                    "destino": "Barrio A",
+                    "capacidad": 5
+                },
+                {
+                    "origen": "Barrio D",
+                    "destino": "Barrio C",
+                    "capacidad": 2
+                },
+                {
+                    "origen": "Barrio A",
+                    "destino": "Barrio B",
+                    "capacidad": 1
+                },
+                {
+                    "origen": "Barrio A",
+                    "destino": "Barrio D",
+                    "capacidad": 4
+                },
+                {
+                    "origen": "Barrio B",
+                    "destino": "Barrio C",
+                    "capacidad": 2
+                }
+            ]
+        }
+    ]
+}

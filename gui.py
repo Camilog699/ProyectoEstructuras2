@@ -22,7 +22,24 @@ class Gui:
         self.ciudad = ciudad
         self.pintar()
 
+    def without_filter(self, n):
+        if n.tanque:
+            n.resal = False
+            return False
+
+        for barrio in self.ciudad.barrios:
+            if barrio.tanque == 0:
+                barrio.resal = False
+                continue
+
+            if n in barrio.adyacentes:
+                n.resal = False
+                return False
+
+        return True
+
     def pintar(self):
+
         pygame.init()
         imagen = pygame.image.load(
             "/home/camilogomez/ProyectosVscode/Proyecto/Imgs/boton1.png"
@@ -71,11 +88,13 @@ class Gui:
         tanque100 = pygame.image.load(
             "/home/camilogomez/ProyectosVscode/Proyecto/Imgs/Tanque100.png"
         )
+        tanqueDerrame = pygame.image.load("/home/camilogomez/ProyectosVscode/Proyecto/Imgs/TanqueDerrame.png")
         tanque0 = pygame.transform.scale(tanque0, (50, 70))
         tanque25 = pygame.transform.scale(tanque25, (50, 70))
         tanque50 = pygame.transform.scale(tanque50, (50, 70))
         tanque75 = pygame.transform.scale(tanque75, (50, 70))
         tanque100 = pygame.transform.scale(tanque100, (50, 70))
+        tanqueDerrame = pygame.transform.scale(tanqueDerrame,(50,70))
 
         barrioImg = pygame.image.load(
             "/home/camilogomez/ProyectosVscode/Proyecto/Imgs/Barrio1.png"
@@ -158,11 +177,20 @@ class Gui:
                                 new = tubo.origen
                                 tubo.origen = tubo.destino
                                 tubo.destino = new
+                                tubo.origen.adyacentes.append(tubo.destino)
+                                tubo.destino.adyacentes.remove(tubo.origen)
                                 break
                         self.cambio = False
 
                 if evento.type == pygame.QUIT:
                     run = False
+
+            whithoutsin = list(
+                filter(lambda b: self.without_filter(b), self.ciudad.barrios)
+            )
+
+            for barrio in whithoutsin:
+                barrio.resal = True
 
             ventana.fill((255, 255, 255))
             cursor.update()
@@ -271,9 +299,15 @@ class Gui:
                         holi = ventana.blit(tanque75, (barrio.x + 50, barrio.y - 20))
                     if barrio.selectImg(barrio.monton) == 4:
                         holi = ventana.blit(tanque100, (barrio.x + 50, barrio.y - 20))
+                    if barrio.selectImg(barrio.monton) == 5:
+                        holi = ventana.blit(tanqueDerrame, (barrio.x + 50, barrio.y - 20))
 
                     texto = fuente.render(str(barrio.monton), True, (0, 0, 0))
                     ventana.blit(texto, (holi.centerx, holi.centery))
+                if barrio.resal:
+                    pygame.draw.circle(
+                        ventana, (0, 0, 250), (barrio.x + 100, barrio.y), 3
+                    )
 
                 barrio.linea = ventana.blit(barrioImg, (barrio.x, barrio.y))
                 texto = fuente.render(barrio.id, True, (0, 0, 0))

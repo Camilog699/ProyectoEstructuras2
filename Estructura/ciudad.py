@@ -21,7 +21,6 @@ class Ciudad:
             return
         self.tubos.append(tubo)
         origen.adyacentes.append(destino)
-        destino.adyacentes.append(origen)
 
     def buscarBarrio(self, id):
         for barrio in self.barrios:

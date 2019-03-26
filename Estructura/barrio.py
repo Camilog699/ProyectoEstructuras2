@@ -9,6 +9,8 @@ class Barrio:
             imagen = 2
         elif monton < 300:
             imagen = 3
+        elif monton > 300:
+            imagen = 5
 
         return imagen
 
@@ -21,4 +23,5 @@ class Barrio:
         self.monton = monton
         self.linea = None
         self.selectImg(monton)
-        self.capacidad = 300
+        self.resal = False
+        self.capacidad = 400
